@@ -1,7 +1,10 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <div v-for="facet in facets">
+      <h1>{{facet.name}}</h1>
+      
+      <input type="text" :disabled="facet.metadata.output.devdoc.methods['getCounter(uint256)']['custom:test'] === 'test123'">
+    </div>
   </div>
 </template>
 
@@ -20,7 +23,7 @@ export default {
       ipfs: null,
       facets: [
         {
-          address: '0x44DC2365202AD0faa5f9745B00C1b19e6ea58a7f',
+          address: '0xE70DD3f6BD230b919EC0E0f7b1353f38Fd00025b',
           name: 'LocalFacet',
         }
       ]
@@ -34,7 +37,7 @@ export default {
     await provider.send("eth_requestAccounts", []);
     // const signer = provider.getSigner()
 
-    console.log(await this.getMetadataFromAddress(this.facets[0].address))
+    this.facets[0].metadata = await this.getMetadataFromAddress(this.facets[0].address)
   },
   methods: {
     async getMetadataFromAddress(address) {
