@@ -1,9 +1,11 @@
 <template>
   <div class="home">
     <div v-for="facet in facets">
-      <h1>{{facet.name}}</h1>
-      
-      <input type="text" :disabled="facet.metadata.output.devdoc.methods['getCounter(uint256)']['custom:test'] === 'test123'">
+      <div v-if="facet.metadata">
+        <h1>{{facet.name}}</h1>
+        
+        <input type="text" :disabled="facet.metadata.output.devdoc.methods['getCounter(uint256)']['custom:test'] === 'test123'">
+      </div>
     </div>
   </div>
 </template>
@@ -23,7 +25,7 @@ export default {
       ipfs: null,
       facets: [
         {
-          address: '0xE70DD3f6BD230b919EC0E0f7b1353f38Fd00025b',
+          address: '0x2f3efA6bbDC5fAf4dC1a600765c7B7829e47bE10',
           name: 'LocalFacet',
         }
       ]
@@ -31,7 +33,6 @@ export default {
   },
   async mounted() {
     this.ipfs = await IPFS.create()
-
 
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     await provider.send("eth_requestAccounts", []);
