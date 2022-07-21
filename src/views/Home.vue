@@ -55,6 +55,7 @@ export default {
 
       const toHexString = bytes => bytes.reduce((str, byte) => str + byte.toString(16).padStart(2, '0'), '');
 
+
       console.log(bs58.encode(contractMetadata.ipfs))
       const stream = this.ipfs.cat(bs58.encode(contractMetadata.ipfs))
 
